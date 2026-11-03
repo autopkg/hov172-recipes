@@ -5,22 +5,25 @@ import subprocess
 
 from autopkglib import Processor, ProcessorError
 
-__all__ = ["PkgSigner"]
+__all__ = ["BonjourViewPkgSigner"]
 
 
-class PkgSigner(Processor):
+class BonjourViewPkgSigner(Processor):
     description = "Signs pkg_path in place with productsign. Skips packages that are already signed."
     input_variables = {
         "pkg_path": {"required": True, "description": "Path to the flat package to sign."},
         "signing_identity": {
-            "required": True,
-            "description": "Name of a Developer ID Installer identity in the keychain.",
+            "required": False,
+            "description": "Optional. Name of a Developer ID Installer identity in the keychain.",
         },
     }
     output_variables = {"pkg_path": {"description": "Path to the signed package."}}
 
     def main(self):
         pkg_path = self.env["pkg_path"]
+        if not self.env.get("signing_identity"):
+            self.output("No signing identity set; leaving package unsigned")
+            return
         check = subprocess.run(
             ["/usr/sbin/pkgutil", "--check-signature", pkg_path], capture_output=True, text=True
         )
@@ -42,4 +45,4 @@ class PkgSigner(Processor):
 
 
 if __name__ == "__main__":
-    PkgSigner().execute_shell()
+    BonjourViewPkgSigner().execute_shell()

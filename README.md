@@ -16,7 +16,7 @@ That short form is all AutoPkg needs: it expands to `https://github.com/hov172/a
 | DisplayHelp | `DisplayHelp.download`, `DisplayHelp.munki`, `DisplayHelp.jamf`, `DisplayHelp.intune` | [hov172/DisplayHelp](https://github.com/hov172/DisplayHelp) |
 | BonjourView | `BonjourView.download`, `BonjourView.pkg`, `BonjourView.munki`, `BonjourView.jamf`, `BonjourView.intune` | [hov172/BonjourView](https://github.com/hov172/BonjourView) |
 
-Every download recipe fetches the vendor's signed and notarized artifact straight from GitHub Releases and fails if the Developer ID signature does not match Team ID `N859JA9UCJ`. Stash Video and DisplayHelp ship flat packages, which are deployed as is. BonjourView ships a zipped app bundle, so its `.pkg` recipe wraps the verified app in a package with AutoPkg's `AppPkgCreator` and signs it with the `Developer ID Installer` identity named by `SIGNING_IDENTITY` (override it in a recipe override to use your own).
+Every download recipe fetches the vendor's signed and notarized artifact straight from GitHub Releases and fails if the Developer ID signature does not match Team ID `N859JA9UCJ`. Stash Video and DisplayHelp ship flat packages, which are deployed as is. BonjourView ships a zipped app bundle, so its `.pkg` recipe wraps the verified app in a package with AutoPkg's `AppPkgCreator` and, if `SIGNING_IDENTITY` is set, signs it with that `Developer ID Installer` identity. It is empty by default (unsigned); set it in a recipe override to sign.
 
 ## Setup
 
