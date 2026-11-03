@@ -22,7 +22,7 @@ Process:
       categories:
         - "%CATEGORY%"
       information_url: https://github.com/hov172/StashVideos
-      bundleId: com.ayala.solutions.yt-dlp-gui-Macos
+      bundleId: "%bundleid%"
       bundleVersion: "%version%"
       minimumSupportedOperatingSystem: "%MINIMUM_OS%"
       icon: "%RECIPE_DIR%/%NAME%.png"

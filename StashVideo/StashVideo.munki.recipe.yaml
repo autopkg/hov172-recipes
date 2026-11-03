@@ -23,13 +23,14 @@ Process:
   # Stash Video updates itself (Settings > Updates) and is also installed by
   # Homebrew, so key the installed check on the app bundle rather than the pkg
   # receipt. Munki then leaves a current or newer copy alone however it got there.
+  # bundleid and version come from PlistReader in the download recipe.
   - Processor: MunkiPkginfoMerger
     Arguments:
       additional_pkginfo:
         installs:
           - type: application
             path: /Applications/Stash Video.app
-            CFBundleIdentifier: com.ayala.solutions.yt-dlp-gui-Macos
+            CFBundleIdentifier: "%bundleid%"
             CFBundleShortVersionString: "%version%"
             version_comparison_key: CFBundleShortVersionString
 

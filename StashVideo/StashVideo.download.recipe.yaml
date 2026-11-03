@@ -1,4 +1,4 @@
-Description: Downloads the latest signed, notarized Stash Video installer package from GitHub Releases and verifies its Developer ID signature.
+Description: Downloads the latest signed, notarized Stash Video installer package from GitHub Releases, verifies its Developer ID signature, and reads the bundle identifier and version from the app inside it.
 Identifier: com.github.hov172.download.StashVideo
 MinimumVersion: "2.3"
 
@@ -25,3 +25,29 @@ Process:
         - "Developer ID Installer: Jesus Ayala (N859JA9UCJ)"
         - Developer ID Certification Authority
         - Apple Root CA
+
+  # Read bundleid and version from the app itself rather than hard-coding them: Stash Video 2.0
+  # moved from com.ayala.solutions.yt-dlp-gui-Macos to com.ayalasolutions.stashvideo, and the
+  # child recipes follow whichever one the release carries.
+  - Processor: FlatPkgUnpacker
+    Arguments:
+      flat_pkg_path: "%pathname%"
+      destination_path: "%RECIPE_CACHE_DIR%/unpack"
+      purge_destination: true
+
+  - Processor: FileFinder
+    Arguments:
+      pattern: "%RECIPE_CACHE_DIR%/unpack/*.pkg/Payload"
+
+  - Processor: PkgPayloadUnpacker
+    Arguments:
+      pkg_payload_path: "%found_filename%"
+      destination_path: "%RECIPE_CACHE_DIR%/payload"
+      purge_destination: true
+
+  - Processor: PlistReader
+    Arguments:
+      info_path: "%RECIPE_CACHE_DIR%/payload/Stash Video.app/Contents/Info.plist"
+      plist_keys:
+        CFBundleIdentifier: bundleid
+        CFBundleShortVersionString: version
