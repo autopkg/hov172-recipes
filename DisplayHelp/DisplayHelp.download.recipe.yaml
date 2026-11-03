@@ -4,19 +4,17 @@ MinimumVersion: "2.3"
 
 Input:
   NAME: DisplayHelp
-  GITHUB_REPO: hov172/DisplayHelp
-  ASSET_REGEX: ^DisplayHelp-[0-9.]+\.pkg$
 
 Process:
   - Processor: GitHubReleasesInfoProvider
     Arguments:
-      github_repo: "%GITHUB_REPO%"
-      asset_regex: "%ASSET_REGEX%"
+      github_repo: hov172/DisplayHelp
+      asset_regex: ^DisplayHelp-[0-9.]+\.pkg$
 
   - Processor: URLDownloader
     Arguments:
       url: "%url%"
-      filename: "%NAME%.pkg"
+      filename: "%NAME%-%version%.pkg"
 
   - Processor: EndOfCheckPhase
 

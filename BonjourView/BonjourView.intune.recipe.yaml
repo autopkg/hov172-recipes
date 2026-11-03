@@ -1,4 +1,4 @@
-Description: Downloads the latest BonjourView release, packages it, and uploads it, with its icon, to Microsoft Intune.
+Description: Downloads the latest BonjourView release, packages it, and uploads it, with its icon, to Microsoft Intune. Override DISPLAY_NAME, PUBLISHER, DESCRIPTION, CATEGORY (one Intune app category, created if missing) or MINIMUM_OS (an Intune macOS version key such as v14_0).
 Identifier: com.github.hov172.intune.BonjourView
 MinimumVersion: "2.3"
 ParentRecipe: com.github.hov172.pkg.BonjourView
@@ -9,8 +9,7 @@ Input:
   PUBLISHER: Ayala Solutions
   DESCRIPTION: Shows every Bonjour (mDNS / DNS-SD) service on the local network as it appears and disappears, identifies what each one is, and lets you open, copy or export what it finds.
   MINIMUM_OS: v14_0
-  CATEGORIES:
-    - Productivity
+  CATEGORY: Productivity
 
 Process:
   - Processor: com.github.almenscorner.intune-upload.processors/IntuneAppUploader
@@ -20,7 +19,8 @@ Process:
       description: "%DESCRIPTION%"
       publisher: "%PUBLISHER%"
       developer: "%PUBLISHER%"
-      categories: "%CATEGORIES%"
+      categories:
+        - "%CATEGORY%"
       information_url: https://github.com/hov172/BonjourView
       bundleId: "%bundleid%"
       bundleVersion: "%version%"

@@ -4,15 +4,13 @@ MinimumVersion: "2.3"
 
 Input:
   NAME: BonjourView
-  GITHUB_REPO: hov172/BonjourView
-  # v3.0.0 shipped as Bonjeff-<ver>.zip; later releases ship as BonjourView-<ver>.zip.
-  ASSET_REGEX: ^(BonjourView|Bonjeff)-[0-9.]+\.zip$
 
 Process:
   - Processor: GitHubReleasesInfoProvider
     Arguments:
-      github_repo: "%GITHUB_REPO%"
-      asset_regex: "%ASSET_REGEX%"
+      github_repo: hov172/BonjourView
+      # v3.0.0 shipped as Bonjeff-<ver>.zip; later releases ship as BonjourView-<ver>.zip.
+      asset_regex: ^(BonjourView|Bonjeff)-[0-9.]+\.zip$
 
   - Processor: URLDownloader
     Arguments:

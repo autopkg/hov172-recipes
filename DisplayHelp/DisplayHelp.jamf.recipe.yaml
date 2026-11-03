@@ -1,4 +1,4 @@
-Description: Downloads the latest DisplayHelp installer package and uploads it, with its icon, to Jamf Pro.
+Description: Downloads the latest DisplayHelp installer package and uploads it, with its icon, to Jamf Pro. Override CATEGORY to file the package under a different Jamf Pro category; it is created if missing.
 Identifier: com.github.hov172.jamf.DisplayHelp
 MinimumVersion: "2.3"
 ParentRecipe: com.github.hov172.download.DisplayHelp
@@ -8,6 +8,10 @@ Input:
   CATEGORY: Utilities
 
 Process:
+  - Processor: com.github.grahampugh.jamf-upload.processors/JamfCategoryUploader
+    Arguments:
+      category_name: "%CATEGORY%"
+
   - Processor: com.github.grahampugh.jamf-upload.processors/JamfPackageUploader
     Arguments:
       pkg_path: "%pathname%"

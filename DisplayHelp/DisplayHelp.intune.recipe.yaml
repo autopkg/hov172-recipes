@@ -1,4 +1,4 @@
-Description: Downloads the latest DisplayHelp installer package and uploads it, with its icon, to Microsoft Intune.
+Description: Downloads the latest DisplayHelp installer package and uploads it, with its icon, to Microsoft Intune. Override DISPLAY_NAME, PUBLISHER, DESCRIPTION, CATEGORY (one Intune app category, created if missing) or MINIMUM_OS (an Intune macOS version key such as v14_0).
 Identifier: com.github.hov172.intune.DisplayHelp
 MinimumVersion: "2.3"
 ParentRecipe: com.github.hov172.download.DisplayHelp
@@ -8,10 +8,8 @@ Input:
   DISPLAY_NAME: DisplayHelp
   PUBLISHER: Ayala Solutions
   DESCRIPTION: DisplayHelp fixes common classroom and conference-room display problems from the menu bar, with one-click fixes and admin-defined Custom Fixes.
-  BUNDLE_ID: com.displayhelp.app
   MINIMUM_OS: v14_0
-  CATEGORIES:
-    - Business
+  CATEGORY: Business
 
 Process:
   - Processor: com.github.almenscorner.intune-upload.processors/IntuneAppUploader
@@ -21,9 +19,10 @@ Process:
       description: "%DESCRIPTION%"
       publisher: "%PUBLISHER%"
       developer: "%PUBLISHER%"
-      categories: "%CATEGORIES%"
+      categories:
+        - "%CATEGORY%"
       information_url: https://github.com/hov172/DisplayHelp
-      bundleId: "%BUNDLE_ID%"
+      bundleId: com.displayhelp.app
       bundleVersion: "%version%"
       minimumSupportedOperatingSystem: "%MINIMUM_OS%"
       icon: "%RECIPE_DIR%/%NAME%.png"

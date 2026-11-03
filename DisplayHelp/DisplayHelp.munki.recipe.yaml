@@ -1,4 +1,4 @@
-Description: Downloads the latest DisplayHelp installer package and imports it into Munki.
+Description: Downloads the latest DisplayHelp installer package and imports it into Munki. Override MUNKI_REPO_SUBDIR, MUNKI_CATALOG (default testing) or keys in pkginfo to change where and how it is imported.
 Identifier: com.github.hov172.munki.DisplayHelp
 MinimumVersion: "2.3"
 ParentRecipe: com.github.hov172.download.DisplayHelp
